@@ -26,12 +26,15 @@ export async function initializeDB() {
             + 'characterName TEXT PRIMARY KEY,'
             + 'characterImgUrl TEXT,'
             + 'level INTEGER,'
+            + 'exp BIGINT,'
             + 'jobName TEXT,'
             + 'jobId INTEGER,'
             + 'worldName TEXT,'
             + 'worldId INTEGER,'
-            + 'rank INTEGER,'
-            + 'gap INTEGER'
+            + 'overallRank INTEGER,'
+            + 'legionLevel INTEGER,'
+            + 'raidPower BIGINT,'
+            + 'legionRank INTEGER'
             + ');');
   } finally {
     client.release();
