@@ -2,16 +2,18 @@ import format from 'pg-format';
 import { overallRankingData } from '../api/overall';
 import { pool } from './postgres';
 import log from '../utils/logger';
+import { legionRankingData } from '../api/legion';
 
 export async function upsertOverallRankingData(data: overallRankingData[]) {
   log.info(`[DB] Upserting Overall Ranking Data... (${data.length} entries)`);
   const values = data.map((charData) => {
     const {
-      CharacterName, CharacterImgUrl, Level, JobName, JobID, WorldName, WorldID, Rank, Gap,
+      CharacterName, CharacterImgUrl, Level, Exp, JobName, JobID, WorldName, WorldID, OverallRank,
     } = charData;
-    return [CharacterName, CharacterImgUrl, Level, JobName, JobID, WorldName, WorldID, Rank, Gap];
+    return [CharacterName, CharacterImgUrl, Level, Exp, JobName,
+      JobID, WorldName, WorldID, OverallRank];
   });
-  const query = format('INSERT INTO overallRanking (characterName, characterImgUrl, level, jobName, jobId, worldName, worldId, rank, gap) VALUES %L', values);
+  const query = format('INSERT INTO overallRanking (characterName, characterImgUrl, level, exp, jobName, jobId, worldName, worldId, overallRank) VALUES %L', values);
   const client = await pool.connect();
   try {
     await client.query(query);
@@ -21,6 +23,32 @@ export async function upsertOverallRankingData(data: overallRankingData[]) {
   }
 }
 
-export async function upsertLegionData() {
-  throw new Error('Not implemented yet');
+export async function upsertLegionData(data: legionRankingData[]) {
+  log.info(`[DB] Upserting Legion Ranking Data... (${data.length} entries)`);
+  const values = data.map((charData) => {
+    const {
+      CharacterName,
+      CharacterImgUrl,
+      Level,
+      Exp,
+      JobName,
+      JobID,
+      WorldName,
+      WorldID,
+      OverallRank,
+      LegionLevel,
+      RaidPower,
+      LegionRank,
+    } = charData;
+    return [CharacterName, CharacterImgUrl, Level, Exp, JobName, JobID, WorldName,
+      WorldID, OverallRank, LegionLevel, RaidPower, LegionRank];
+  });
+  const query = format('INSERT INTO overallRanking (characterName, characterImgUrl, level, exp, jobName, jobId, worldName, worldId, overallRank, legionLevel, raidPower, legionRank) VALUES %L', values);
+  const client = await pool.connect();
+  try {
+    await client.query(query);
+  } finally {
+    client.release();
+    log.info('[DB] Overall Ranking Data upsert complete. Client has been released.');
+  }
 }
