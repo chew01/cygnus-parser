@@ -8,6 +8,7 @@ export const {
 } = process.env;
 export const DB_PORT = Number(process.env.DB_PORT) ?? 5432;
 export const MINIMUM_LEVEL = Number(process.env.MINIMUM_LEVEL) ?? 200;
+export const DB_MAX_CLIENTS = Number(process.env.DB_MAX_CLIENTS) ?? 5;
 
 if (!DB_HOSTNAME) throw new Error('Database hostname was not specified!');
 if (!DB_NAME) throw new Error('Database name was not specified!');
