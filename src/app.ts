@@ -1,9 +1,7 @@
-import getOverallRanking from './api/overall';
 import { MINIMUM_LEVEL } from './config';
-import { initializeDB } from './db/postgres';
+import { initializeDB } from './db';
 import log from './utils/logger';
-import getLegionRanking from './api/legion';
-import { upsertLegionData } from './db/upsertData';
+import fetchRanking from './api';
 
 initializeDB().catch((err) => log.error(err.stack));
-getOverallRanking(MINIMUM_LEVEL).then(getLegionRanking).then(upsertLegionData);
+fetchRanking(MINIMUM_LEVEL);

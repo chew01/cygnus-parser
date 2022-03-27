@@ -21,7 +21,8 @@ export type legionRankingData = {
 
 async function getLegionRankingWithOverallData(overallData: overallRankingData):
     Promise<legionRankingData> {
-  const result = await axios.get(`${API_URL}/ranking?id=legion&id2=${overallData.WorldID}&character_name=${overallData.CharacterName}`);
+  const result = await axios.get(`${API_URL}/ranking?id=legion&id2=${overallData.WorldID}&character_name=${encodeURIComponent(overallData.CharacterName)}`);
+
   const legionData = result.data.map((data: rawRankingData) => {
     const {
       LegionLevel, RaidPower,
