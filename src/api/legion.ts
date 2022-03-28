@@ -14,15 +14,19 @@ export type legionRankingData = {
     WorldName: string,
     WorldID: number
     OverallRank: number,
-    LegionLevel: number,
-    RaidPower: bigint,
-    LegionRank: number
+    LegionLevel: number | null,
+    RaidPower: bigint | null,
+    LegionRank: number | null
 }
 
 async function getLegionRankingWithOverallData(overallData: overallRankingData):
     Promise<legionRankingData> {
   const result = await axios.get(`${API_URL}/ranking?id=legion&id2=${overallData.WorldID}&character_name=${encodeURIComponent(overallData.CharacterName)}`);
-
+  if (!result.data.length) {
+    return {
+      ...overallData, LegionLevel: null, RaidPower: null, LegionRank: null,
+    };
+  }
   const legionData = result.data.map((data: rawRankingData) => {
     const {
       LegionLevel, RaidPower,
