@@ -37,7 +37,7 @@ async function upsertRankingData(data: worldRankingData[]) {
       WorldRank,
     ];
   });
-  const query = format('INSERT INTO overallRanking ('
+  const query = format('INSERT INTO ranking ('
         + 'characterName, characterImgUrl, level, exp, jobName, jobId, worldName, worldId, overallRank, legionLevel, raidPower, legionRank, worldRank'
         + ') VALUES %L', values);
   const client = await pool.connect();

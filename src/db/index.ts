@@ -23,7 +23,7 @@ export async function initializeDB() {
   const client = await pool.connect();
   try {
     log.info('[DB] Database connection successful. Initializing tables...');
-    await client.query('CREATE TABLE IF NOT EXISTS overallRanking ('
+    await client.query('CREATE TABLE IF NOT EXISTS ranking ('
             + 'characterName TEXT PRIMARY KEY,'
             + 'characterImgUrl TEXT,'
             + 'level INTEGER,'
