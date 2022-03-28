@@ -14,9 +14,9 @@ export type worldRankingData = {
     WorldName: string,
     WorldID: number
     OverallRank: number,
-    LegionLevel: number,
-    RaidPower: bigint,
-    LegionRank: number,
+    LegionLevel: number | null,
+    RaidPower: bigint | null,
+    LegionRank: number | null,
     WorldRank: number,
 }
 
@@ -29,6 +29,7 @@ async function getWorldRankingWithLegionData(legionData: legionRankingData):
       ...legionData, WorldRank,
     };
   });
+
   return worldData[0];
 }
 
