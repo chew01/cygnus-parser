@@ -29,7 +29,6 @@ export async function initializeDB() {
             + 'level INTEGER,'
             + 'exp BIGINT,'
             + 'jobName TEXT,'
-            + 'jobId INTEGER,'
             + 'worldName TEXT,'
             + 'worldId INTEGER,'
             + 'overallRank INTEGER,'

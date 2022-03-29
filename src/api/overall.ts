@@ -2,6 +2,7 @@ import axios from 'axios';
 import { API_URL } from '../config';
 import log from '../utils/logger';
 import { rawRankingData } from '../types/rawRankingData';
+import convertJobs from '../utils/helper';
 
 export type overallRankingData = {
     CharacterName: string,
@@ -9,9 +10,8 @@ export type overallRankingData = {
     Level: number,
     Exp: bigint,
     JobName: string,
-    JobID: number,
     WorldName: string,
-    WorldID: number
+    WorldID: number,
     OverallRank: number,
 }
 
@@ -20,11 +20,12 @@ async function getOverallRankingByPageIndex(pageIndex: number):
   const result = await axios.get(`${API_URL}/ranking?id=overall&id2=legendary&rebootIndex=0&page_index=${pageIndex}`);
   return result.data.map((data: rawRankingData) => {
     const {
-      CharacterName, CharacterImgUrl, Level, Exp, JobName, JobID, WorldName, WorldID,
+      CharacterName, CharacterImgUrl, Level, Exp, WorldName, JobID, JobDetail, WorldID,
     } = data;
     const OverallRank = data.Rank;
+    const JobName = convertJobs(JobID, JobDetail);
     return {
-      CharacterName, CharacterImgUrl, Level, Exp, JobName, JobID, WorldName, WorldID, OverallRank,
+      CharacterName, CharacterImgUrl, Level, Exp, JobName, WorldName, OverallRank, WorldID,
     };
   });
 }

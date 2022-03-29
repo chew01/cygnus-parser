@@ -10,7 +10,6 @@ export type legionRankingData = {
     Level: number,
     Exp: bigint
     JobName: string,
-    JobID: number,
     WorldName: string,
     WorldID: number
     OverallRank: number,
