@@ -10,7 +10,7 @@ async function fetchRanking(minLevel: number): Promise<worldRankingData[]> {
     return await getWorldRanking(legion);
   } catch (err) {
     if (err instanceof Error) {
-      log.error(err.stack as string);
+      log.error(err.stack ? err.stack : err.message);
       return [];
     }
     log.error('Unidentified error while fetching rankings.');

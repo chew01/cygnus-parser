@@ -24,18 +24,19 @@ export async function initializeDB() {
   try {
     log.info('[DB] Database connection successful. Initializing tables...');
     await client.query('CREATE TABLE IF NOT EXISTS ranking ('
-            + 'characterName TEXT PRIMARY KEY,'
-            + 'characterImgUrl TEXT,'
+            + 'character_name TEXT PRIMARY KEY,'
+            + 'character_img_url TEXT,'
             + 'level INTEGER,'
             + 'exp BIGINT,'
-            + 'jobName TEXT,'
-            + 'worldName TEXT,'
-            + 'worldId INTEGER,'
-            + 'overallRank INTEGER,'
-            + 'legionLevel INTEGER,'
-            + 'raidPower BIGINT,'
-            + 'legionRank INTEGER,'
-            + 'worldRank INTEGER'
+            + 'exp_percent FLOAT(5),'
+            + 'job_name TEXT,'
+            + 'world_name TEXT,'
+            + 'world_id INTEGER,'
+            + 'overall_rank INTEGER,'
+            + 'legion_level INTEGER,'
+            + 'raid_power BIGINT,'
+            + 'legion_rank INTEGER,'
+            + 'world_rank INTEGER'
             + ');');
   } finally {
     client.release();
