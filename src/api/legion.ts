@@ -1,4 +1,5 @@
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
 import { API_URL } from '../config';
 import { rawRankingData } from '../types/rawRankingData';
 import log from '../utils/logger';
@@ -8,7 +9,8 @@ export type legionRankingData = {
     CharacterName: string,
     CharacterImgUrl: string,
     Level: number,
-    Exp: bigint
+    Exp: bigint,
+    ExpPercent: number,
     JobName: string,
     WorldName: string,
     WorldID: number
@@ -20,6 +22,7 @@ export type legionRankingData = {
 
 async function getLegionRankingWithOverallData(overallData: overallRankingData):
     Promise<legionRankingData> {
+  axiosRetry(axios, { retries: 3 });
   const result = await axios.get(`${API_URL}/ranking?id=legion&id2=${overallData.WorldID}&character_name=${encodeURIComponent(overallData.CharacterName)}`);
   if (!result.data.length) {
     return {
