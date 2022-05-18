@@ -3,6 +3,8 @@ Parser for Maplestory Ranking API written in Node.js. This was meant to compleme
 
 This draws data from the Global Maplestory API and inserts the data into a PostgreSQL database. Not much more can be said about that.
 
+Was not used because drawing data from the API while circumventing its rate limit was... not sustainable to say the least. At least not without multithreading
+
 #### Usage
 1. Install [Node.js (16.14.2 LTS)](https://github.com/nodejs/node). Your installation should include [npm](https://github.com/npm/cli).
 2. Run `npm install`. This will install the required dependencies.
